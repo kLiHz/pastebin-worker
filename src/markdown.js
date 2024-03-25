@@ -54,7 +54,7 @@ export function makeMarkdown(content) {
   <link rel='stylesheet' href='https://pages.github.com/assets/css/style.css'>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
-          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+          src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.3/tex-mml-chtml.js">
   </script>
 </head>
 <body>
