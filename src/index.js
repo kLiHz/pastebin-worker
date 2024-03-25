@@ -21,7 +21,9 @@ async function handleRequest(request, env, ctx) {
     } else {
       const response = await handleNormalRequest(request, env, ctx)
       if (response.status !== 302 && response.headers !== undefined) {  // because Cloudflare do not allow modifying redirect headers
-        response.headers.set("Access-Control-Allow-Origin", "*")
+        const headers = new Headers(response.headers);
+        headers.set("Access-Control-Allow-Origin", "*")
+        return new Response(response.body, {...response, headers});
       }
       return response
     }
@@ -169,6 +171,10 @@ async function handleGet(request, env, ctx) {
     return Response.redirect(env.FAVICON)
   }
 
+  const cacheKey = new Request(((passwd.length > 0) ? new URL("/", env.BASE_URL) : url).toString(), request);
+  const cachedResponse = await caches.default.match(cacheKey);
+  if (cachedResponse) { return cachedResponse; }
+
   // return the editor for admin URL
   const staticPageContent = getStaticPage((passwd.length > 0) ? "/" : url.pathname, env)
   if (staticPageContent) {
@@ -177,9 +183,11 @@ async function handleGet(request, env, ctx) {
     if (authResponse !== null) {
       return authResponse
     }
-    return new Response(staticPageContent, {
+    const staticPageResponse = new Response(staticPageContent, {
       headers: { "content-type": "text/html;charset=UTF-8", ...staticPageCacheHeader(env) }
     })
+    ctx.waitUntil(caches.default.put(cacheKey, staticPageResponse.clone()));
+    return staticPageResponse;
   }
 
   const mime = url.searchParams.get("mime") || getType(ext) || "text/plain"
