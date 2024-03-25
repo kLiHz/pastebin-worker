@@ -171,7 +171,7 @@ async function handleGet(request, env, ctx) {
     return Response.redirect(env.FAVICON)
   }
 
-  const cacheKey = new Request(((passwd.length > 0) ? new URL("/", env.BASE_URL) : url).toString(), request);
+  const cacheKey = new Request(new URL((passwd.length > 0) ? "/" : url, env.BASE_URL));
   const cachedResponse = await caches.default.match(cacheKey);
   if (cachedResponse) { return cachedResponse; }
 
