@@ -175,6 +175,18 @@ async function handleGet(request, env, ctx) {
   const cachedResponse = await caches.default.match(cacheKey);
   if (cachedResponse) { return cachedResponse; }
 
+  if (url.pathname == '/index' || url.pathname == '/index.html') {
+    return Response.redirect(new URL('/', request.url));
+  }
+
+  if (url.pathname == '/tos.html') {
+    return Response.redirect(new URL('/tos', request.url));
+  }
+
+  if (url.pathname == '/api.html') {
+    return Response.redirect(new URL('/api', request.url));
+  }
+
   // return the editor for admin URL
   const staticPageContent = getStaticPage((passwd.length > 0) ? "/" : url.pathname, env)
   if (staticPageContent) {
