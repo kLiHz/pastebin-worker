@@ -31,11 +31,11 @@ body {
     --color-bg: #ffffff;
     --color-bg-secondary: #f4f4f4;
     --color-border: #ddd;
-    --color-shadowed: #f7f7f7;
+    --color-shadowed: #ffffff1c;
 
     --color-green: #2ea44f;
     --color-green-active: #258540;
-    --color-green-disabled: #94d3a2;
+    --color-green-disabled: #3cc15950;
     --color-red: #cb2431;
     --color-red-disabled: #e25c67;
 
@@ -45,6 +45,29 @@ body {
     --color-text: #222;
     --color-text-white: white;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: black;
+        --color-shadowed: #333;
+        --color-text: white;
+        --color-text-stress: white;
+        --color-text-light: lightgray;
+        --color-border: #777;
+        --color-text-secondary: #aaa;
+    }
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+input {
+    background-color: #fff5;
+    color: var(--color-text-light);
+}
+
 
 #paste-input-panel, #paste-setting-panel, #paste-uploaded-panel {
     border: 1px var(--color-border) solid;
@@ -114,6 +137,8 @@ body {
     border: none;
     outline: none;
     resize: vertical;
+    background: var(--color-bg);
+    color: var(--color-text-light);
 }
 
 #paste-file-upload {
