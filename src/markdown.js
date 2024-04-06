@@ -50,7 +50,6 @@ export function makeMarkdown(content) {
   <title>${metadata.title}</title>
   ${metadata.description.length > 0 ? `<meta name='description' content='${metadata.description}'>` : ""}
   <link href='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css' rel='stylesheet' />
-  <link href='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.css' rel='stylesheet' />
   <link rel='stylesheet' href='https://pages.github.com/assets/css/style.css'>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
@@ -62,7 +61,6 @@ export function makeMarkdown(content) {
 ${convertedHtml}
 </article>
   <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js'></script>
-  <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js'></script>
   <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js'></script>
 </html>
 `
