@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function isAdminUrlLegal(url) {
     try {
       url = new URL(url)
-      return url.origin === base_url && url.pathname.indexOf(':') >= 0
+      return url.origin === location.origin && (url.hash.slice(1) || url.pathname).indexOf(':') >= 0
     } catch (e) {
       if (e instanceof TypeError) {
         return false
@@ -307,12 +307,12 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function initAdmin() {
-    const { role, short, passwd, ext } = parsePath(location.pathname)
+    const { role, short, passwd, ext } = parsePath(location.hash.slice(1) || location.pathname)
     if (passwd.length > 0) {
       $('#paste-url-admin-radio').click()
       $('#paste-admin-url-input').val(location.href)
       urlType = 'admin'
-      adminUrl = location.href
+      adminUrl = location.origin + (location.hash.slice(1) || location.pathname)
       updateButtons()
       $.ajax({
         url: "/" + short,
@@ -326,4 +326,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   initAdmin()
+
+  window.onhashchange = () => {
+    if (isAdminUrlLegal(base_url + (location.hash.slice(1) || location.pathname))) { initAdmin(); }
+  }
 })

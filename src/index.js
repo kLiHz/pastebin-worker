@@ -302,7 +302,7 @@ async function createPaste(env, content, isPrivate, expire, short, createDate, p
     },
   })
   let accessUrl = env.BASE_URL + '/' + short
-  const adminUrl = env.BASE_URL + '/' + short + params.SEP + passwd
+  const adminUrl = env.BASE_URL + '/#/' + short + params.SEP + passwd
   return {
     url: accessUrl,
     suggestUrl: suggestUrl(content, filename, short, env.BASE_URL),
