@@ -286,7 +286,7 @@ window.addEventListener('DOMContentLoaded', () => {
     input.focus()
     input.select()
     try {
-      document.execCommand('copy')
+      navigator.clipboard.writeText(input.value)
       resetCopyButtons()
       button.textContent = 'Copied'
     } catch (err) {
