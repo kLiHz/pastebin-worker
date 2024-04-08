@@ -23,7 +23,7 @@ async function handleRequest(request, env, ctx) {
       if (response.status !== 302 && response.headers !== undefined) {  // because Cloudflare do not allow modifying redirect headers
         const headers = new Headers(response.headers);
         headers.set("Access-Control-Allow-Origin", "*")
-        return new Response(response.body, {...response, headers});
+        return new Response(response.body, { headers, status: response.status });
       }
       return response
     }
